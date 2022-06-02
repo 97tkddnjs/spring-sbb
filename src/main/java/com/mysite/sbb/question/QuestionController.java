@@ -3,6 +3,7 @@ package com.mysite.sbb.question;
 import com.mysite.sbb.entity.Question;
 import com.mysite.sbb.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,12 +19,12 @@ public class QuestionController {
     private final QuestionService questionService;
 
     @RequestMapping("/question/list")
-    public String list(Model model) {
+    public String list(Model model, @RequestParam(value="page", defaultValue="0") int page) {
         // 모델 객체는 따로 생성할 필요 없이 컨트롤러 메서드의 매개 변수로 지정하기만 하면
         // 스프링 부트가 자동으로 Model 객체를 생성한다.
 
-        List<Question> questionList = this.questionService.getList();
-        model.addAttribute("questionList",questionList);
+        Page<Question> paging = this.questionService.getList(page);
+        model.addAttribute("paging",paging);
         return "question_list";
     }
 
