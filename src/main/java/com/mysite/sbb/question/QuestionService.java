@@ -3,6 +3,7 @@ package com.mysite.sbb.question;
 import com.mysite.sbb.DataNotFoundException;
 import com.mysite.sbb.entity.Question;
 import com.mysite.sbb.repository.QuestionRepository;
+import com.mysite.sbb.user.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -41,11 +42,12 @@ public class QuestionService {
         return this.questionRepository.findAll(pageable);
     }
 
-    public void create(String subject, String content) {
+    public void create(String subject, String content, SiteUser user) {
         Question q = new Question();
         q.setContent(content);
         q.setSubject(subject);
         q.setCreateDate(LocalDateTime.now());
+        q.setAuthor(user);
         this.questionRepository.save(q);
     }
 }
