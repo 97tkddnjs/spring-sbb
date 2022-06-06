@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
+
 @RequiredArgsConstructor //lombok에서 제공하는 것 자동으로 final 속성 붙은 것 생성자 만듬
 @Controller
 public class QuestionController {
